@@ -26,6 +26,21 @@ language used when loading the master data.
 After this, open the `MHWDecoExtractor.sln` solution with Visual Studio and
 build the project.
 
+## Publishing
+
+From a clean repository state (i.e., no uncommitted changes), run the following
+commands to release a new version.
+
+```
+.\bump_version.bat <new_version>
+.\publish.bat
+```
+
+The new release executable will be produced under
+`.\MHWDecoExtractorGUI\bin\Release\netcoreapp3.1\win-x64\publish\`.
+
+Create a release page on GitHub and upload the executable.
+
 ## Credits
 
 Thanks to https://github.com/TanukiSharp for providing the save utils library.

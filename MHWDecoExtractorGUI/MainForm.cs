@@ -26,6 +26,8 @@
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            labelVersion.Text = string.Format("버전: v{0}", Application.ProductVersion);
+
             ReloadDecorations();
         }
 

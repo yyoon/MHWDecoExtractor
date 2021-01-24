@@ -38,6 +38,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonClipboard = new System.Windows.Forms.Button();
+            this.labelVersion = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             // 
             this.comboBoxSteamUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSteamUsers.FormattingEnabled = true;
-            this.comboBoxSteamUsers.Location = new System.Drawing.Point(143, 12);
+            this.comboBoxSteamUsers.Location = new System.Drawing.Point(143, 41);
             this.comboBoxSteamUsers.Name = "comboBoxSteamUsers";
             this.comboBoxSteamUsers.Size = new System.Drawing.Size(121, 23);
             this.comboBoxSteamUsers.TabIndex = 1;
@@ -54,7 +55,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Location = new System.Drawing.Point(12, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 15);
             this.label1.TabIndex = 0;
@@ -64,7 +65,7 @@
             // 
             this.comboBoxCharacters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCharacters.FormattingEnabled = true;
-            this.comboBoxCharacters.Location = new System.Drawing.Point(143, 41);
+            this.comboBoxCharacters.Location = new System.Drawing.Point(143, 70);
             this.comboBoxCharacters.Name = "comboBoxCharacters";
             this.comboBoxCharacters.Size = new System.Drawing.Size(121, 23);
             this.comboBoxCharacters.TabIndex = 3;
@@ -73,7 +74,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 44);
+            this.label2.Location = new System.Drawing.Point(12, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 15);
             this.label2.TabIndex = 2;
@@ -88,7 +89,7 @@
             this.columnHeader1,
             this.columnHeader2});
             this.listViewDecorations.HideSelection = false;
-            this.listViewDecorations.Location = new System.Drawing.Point(12, 70);
+            this.listViewDecorations.Location = new System.Drawing.Point(12, 99);
             this.listViewDecorations.Name = "listViewDecorations";
             this.listViewDecorations.Size = new System.Drawing.Size(252, 312);
             this.listViewDecorations.TabIndex = 4;
@@ -113,7 +114,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.buttonReload, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.buttonClipboard, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 388);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 417);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -144,18 +145,28 @@
             this.buttonClipboard.UseVisualStyleBackColor = true;
             this.buttonClipboard.Click += new System.EventHandler(this.ButtonClipboard_Click);
             // 
+            // labelVersion
+            // 
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(13, 15);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(34, 15);
+            this.labelVersion.TabIndex = 6;
+            this.labelVersion.Text = "버전:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 450);
+            this.ClientSize = new System.Drawing.Size(276, 479);
+            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.listViewDecorations);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxCharacters);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxSteamUsers);
-            this.MinimumSize = new System.Drawing.Size(292, 489);
+            this.MinimumSize = new System.Drawing.Size(292, 300);
             this.Name = "MainForm";
             this.Text = "보유 장식주 추출기";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -177,6 +188,7 @@
         private System.Windows.Forms.Button buttonClipboard;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Label labelVersion;
     }
 }
 

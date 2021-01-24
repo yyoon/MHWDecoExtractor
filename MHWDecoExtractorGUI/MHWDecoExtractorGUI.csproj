@@ -4,6 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <!-- The version numbers below are meant to be overridden upon publishing. -->
+    <VersionPrefix>0.0.0</VersionPrefix>
+    <VersionSuffix>dev$([System.DateTime]::UtcNow.ToString(yyyyMMdd-HHmm))</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
