@@ -1,14 +1,14 @@
 ﻿namespace MHWDecoExtractorGUI
 {
     using MHWCrypto;
+    using MHWDecoExtractorGUI.Models;
     using MHWSaveUtils;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
-    using System.Text.Unicode;
+    using System.Reflection;
     using System.Threading;
     using System.Windows.Forms;
     using TextCopy;
@@ -29,6 +29,8 @@
             labelVersion.Text = string.Format("버전: v{0}", Application.ProductVersion);
 
             ReloadDecorations();
+
+            PopulateDecorationListExporters();
         }
 
         private async void ComboBoxSteamUsers_SelectedValueChanged(object sender, EventArgs e)
@@ -89,8 +91,8 @@
             }
 
             listViewDecorations.Items.AddRange(decorations.ToList()
-                .OrderBy(kv => GetNormalizedDecorationName(kv.Key), DecorationNameComparer.Instance)
                 .Select(kv => new ListViewItem(new string[] { MasterData.FindJewelInfoByItemId(kv.Key).Name, kv.Value.ToString() }))
+                .OrderBy(lvi => lvi.SubItems[0].Text, DecorationNameComparer.Instance)
                 .ToArray());
 
             buttonClipboard.Focus();
@@ -103,24 +105,17 @@
 
         private async void ButtonClipboard_Click(object sender, EventArgs e)
         {
-            var counts = MasterData.Jewels.ToDictionary(j => j.ItemId, j => (uint)0);
-
             if (!(comboBoxCharacters.SelectedValue is IReadOnlyDictionary<uint, uint> decorations))
             {
                 return;
             }
 
-            foreach (var kv in decorations)
+            if (!(comboBoxExporterType.SelectedValue is IDecorationListExporter exporter))
             {
-                counts[kv.Key] = kv.Value;
+                return;
             }
 
-            var exportString = string.Join("", counts.ToList()
-                .Select(kv => KeyValuePair.Create(GetNormalizedDecorationName(kv.Key), kv.Value))
-                .OrderBy(kv => kv.Key, DecorationNameComparer.Instance)
-                .Select(kv => string.Format("{0}|{1};", kv.Key, Math.Min(kv.Value, 9))));
-
-            await ClipboardService.SetTextAsync(exportString);
+            await ClipboardService.SetTextAsync(exporter.ExportAsString(decorations));
         }
 
         private void ReloadDecorations()
@@ -165,77 +160,21 @@
             LastUsedSteamUserId = null;
         }
 
-        private string GetNormalizedDecorationName(uint decorationId)
+        private void PopulateDecorationListExporters()
         {
-            string decorationName = MasterData.FindJewelInfoByItemId(decorationId).Name
-                .Replace("Ⅱ", "II")
-                .Replace("Ⅲ", "III");
+            Type exporterType = typeof(IDecorationListExporter);
 
-            // NOTE: Handle the inconsistencies between Gobbler combined L4 jewel names.
-            // summoned.me website consistently uses "조식-" prefix, whereas the in-game name is mixed.
-            decorationName = decorationName.Replace("흡입", "조식");
+            var exporters = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.Namespace == exporterType.Namespace)
+                .Where(t => t.IsClass && exporterType.IsAssignableFrom(t))
+                .Select(t => (IDecorationListExporter)t.GetConstructors()[0].Invoke(null))
+                .Select(exporter => new { exporter.DisplayName, Exporter = exporter })
+                .ToList();
 
-            if (Regex.IsMatch(decorationName, "【.】$"))
-            {
-                decorationName = decorationName.Substring(0, decorationName.Length - 3);
-            }
-
-            Match match = Regex.Match(decorationName, "(.+[^IVX]+)([IVX]+)?");
-            decorationName = string.IsNullOrEmpty(match.Groups[2].Value)
-                ? decorationName
-                : string.Format("{0} {1}", match.Groups[1], match.Groups[2]);
-
-            return decorationName;
-        }
-
-        private class DecorationNameComparer : IComparer<string>
-        {
-            private DecorationNameComparer() { }
-
-            public static DecorationNameComparer Instance { get; } = new DecorationNameComparer();
-
-            int IComparer<string>.Compare(string x, string y)
-            {
-                int minLength = Math.Min(x.Length, y.Length);
-                for (int i = 0; i < minLength; ++i)
-                {
-                    char xch = x[i];
-                    char ych = y[i];
-
-                    // Place Korean letters before English alphabets.
-                    if (IsHangul(xch) && IsEnglish(ych))
-                        return -1;
-                    if (IsHangul(ych) && IsEnglish(xch))
-                        return 1;
-
-                    if (xch < ych)
-                        return -1;
-                    if (xch > ych)
-                        return 1;
-                }
-
-                if (x.Length < y.Length)
-                    return -1;
-                if (x.Length > y.Length)
-                    return 1;
-
-                return 0;
-            }
-
-            private bool IsHangul(char ch)
-            {
-                return IsCharInRange(ch, UnicodeRanges.HangulSyllables);
-            }
-
-            private bool IsEnglish(char ch)
-            {
-                return IsCharInRange(ch, UnicodeRanges.BasicLatin) && char.IsLetter(ch);
-            }
-
-            private bool IsCharInRange(char ch, UnicodeRange range)
-            {
-                return range.FirstCodePoint <= ch && ch < range.FirstCodePoint + range.Length;
-            }
+            comboBoxExporterType.DisplayMember = "DisplayName";
+            comboBoxExporterType.ValueMember = "Exporter";
+            comboBoxExporterType.DataSource = exporters;
+            comboBoxExporterType.SelectedIndex = 0;
         }
     }
 }

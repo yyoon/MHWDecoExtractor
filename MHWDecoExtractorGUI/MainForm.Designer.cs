@@ -39,6 +39,8 @@
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonClipboard = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxExporterType = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +51,7 @@
             this.comboBoxSteamUsers.Location = new System.Drawing.Point(143, 41);
             this.comboBoxSteamUsers.Name = "comboBoxSteamUsers";
             this.comboBoxSteamUsers.Size = new System.Drawing.Size(121, 23);
-            this.comboBoxSteamUsers.TabIndex = 1;
+            this.comboBoxSteamUsers.TabIndex = 2;
             this.comboBoxSteamUsers.SelectedValueChanged += new System.EventHandler(this.ComboBoxSteamUsers_SelectedValueChanged);
             // 
             // label1
@@ -58,7 +60,7 @@
             this.label1.Location = new System.Drawing.Point(12, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 15);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 1;
             this.label1.Text = "스팀 유저 ID";
             // 
             // comboBoxCharacters
@@ -68,7 +70,7 @@
             this.comboBoxCharacters.Location = new System.Drawing.Point(143, 70);
             this.comboBoxCharacters.Name = "comboBoxCharacters";
             this.comboBoxCharacters.Size = new System.Drawing.Size(121, 23);
-            this.comboBoxCharacters.TabIndex = 3;
+            this.comboBoxCharacters.TabIndex = 4;
             this.comboBoxCharacters.SelectedValueChanged += new System.EventHandler(this.ComboBoxCharacters_SelectedValueChanged);
             // 
             // label2
@@ -77,7 +79,7 @@
             this.label2.Location = new System.Drawing.Point(12, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 15);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 3;
             this.label2.Text = "몬헌 캐릭터";
             // 
             // listViewDecorations
@@ -89,10 +91,10 @@
             this.columnHeader1,
             this.columnHeader2});
             this.listViewDecorations.HideSelection = false;
-            this.listViewDecorations.Location = new System.Drawing.Point(12, 99);
+            this.listViewDecorations.Location = new System.Drawing.Point(12, 128);
             this.listViewDecorations.Name = "listViewDecorations";
-            this.listViewDecorations.Size = new System.Drawing.Size(252, 312);
-            this.listViewDecorations.TabIndex = 4;
+            this.listViewDecorations.Size = new System.Drawing.Size(252, 283);
+            this.listViewDecorations.TabIndex = 7;
             this.listViewDecorations.UseCompatibleStateImageBehavior = false;
             this.listViewDecorations.View = System.Windows.Forms.View.Details;
             // 
@@ -119,7 +121,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(252, 50);
-            this.tableLayoutPanel1.TabIndex = 5;
+            this.tableLayoutPanel1.TabIndex = 8;
             // 
             // buttonReload
             // 
@@ -151,14 +153,34 @@
             this.labelVersion.Location = new System.Drawing.Point(13, 15);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(34, 15);
-            this.labelVersion.TabIndex = 6;
+            this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "버전:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 102);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 15);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "사용 시뮬레이터";
+            // 
+            // comboBoxExporterType
+            // 
+            this.comboBoxExporterType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxExporterType.FormattingEnabled = true;
+            this.comboBoxExporterType.Location = new System.Drawing.Point(143, 99);
+            this.comboBoxExporterType.Name = "comboBoxExporterType";
+            this.comboBoxExporterType.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxExporterType.TabIndex = 6;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(276, 479);
+            this.Controls.Add(this.comboBoxExporterType);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.listViewDecorations);
@@ -189,6 +211,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBoxExporterType;
     }
 }
 
