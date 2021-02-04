@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MHWSaveUtils", "..\MHWSaveUtils\MHWSaveUtils\MHWSaveUtils.csproj", "{C686275B-2D0F-41D0-A1C2-798683809489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWDecoExtractorGUI", "MHWDecoExtractorGUI\MHWDecoExtractorGUI.csproj", "{E86991A1-AA2D-450F-89BF-75199EBB6850}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MHWDecoExtractorGUI", "MHWDecoExtractorGUI\MHWDecoExtractorGUI.csproj", "{E86991A1-AA2D-450F-89BF-75199EBB6850}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28FB5610-7D20-4A0A-A6EA-17023B8DEDF3}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		VERSION = VERSION
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MHWDecoExtractorGUITest", "MHWDecoExtractorGUITest\MHWDecoExtractorGUITest.csproj", "{1A5D5A61-D237-4B8E-B295-8817B8529F74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{E86991A1-AA2D-450F-89BF-75199EBB6850}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E86991A1-AA2D-450F-89BF-75199EBB6850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E86991A1-AA2D-450F-89BF-75199EBB6850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5D5A61-D237-4B8E-B295-8817B8529F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5D5A61-D237-4B8E-B295-8817B8529F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5D5A61-D237-4B8E-B295-8817B8529F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5D5A61-D237-4B8E-B295-8817B8529F74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

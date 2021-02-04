@@ -26,11 +26,9 @@
             return exportString;
         }
 
-        private string GetNormalizedDecorationName(uint decorationId)
+        internal string GetNormalizedDecorationName(uint decorationId)
         {
             string decorationName = MasterData.FindJewelInfoByItemId(decorationId).Name
-                .Replace("2", "２")
-                .Replace("3", "３")
                 .Replace("IV", "Ⅳ")
                 .Replace("-", "・");
 
@@ -43,6 +41,13 @@
             if (!Regex.IsMatch(decorationName, "[ⅡⅢⅣ]"))
             {
                 decorationName = $"{decorationName[0..^3]} {decorationName[^3..]}";
+            }
+
+            // The following decoration names should be normalized to use the half-width digits
+            // in the decoration level portion.
+            if (Regex.IsMatch(decorationName, "^(낙법주|삭격주|양동주|추위 내성주).*"))
+            {
+                decorationName = decorationName.Normalize(System.Text.NormalizationForm.FormKC);
             }
 
             return decorationName;

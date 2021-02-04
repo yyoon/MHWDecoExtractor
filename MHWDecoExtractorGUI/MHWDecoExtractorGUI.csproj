@@ -17,4 +17,10 @@
     <ProjectReference Include="..\..\MHWSaveUtils\MHWSaveUtils\MHWSaveUtils.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>MHWDecoExtractorGUITest</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

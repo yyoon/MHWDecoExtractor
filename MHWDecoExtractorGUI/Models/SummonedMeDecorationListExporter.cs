@@ -26,7 +26,7 @@
             return exportString;
         }
 
-        private string GetNormalizedDecorationName(uint decorationId)
+        internal string GetNormalizedDecorationName(uint decorationId)
         {
             string decorationName = MasterData.FindJewelInfoByItemId(decorationId).Name
                 .Replace("Ⅱ", "II")
