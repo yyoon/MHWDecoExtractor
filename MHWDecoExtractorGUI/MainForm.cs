@@ -162,18 +162,9 @@
 
         private void PopulateDecorationListExporters()
         {
-            Type exporterType = typeof(IDecorationListExporter);
-
-            var exporters = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.Namespace == exporterType.Namespace)
-                .Where(t => t.IsClass && exporterType.IsAssignableFrom(t))
-                .Select(t => (IDecorationListExporter)t.GetConstructors()[0].Invoke(null))
-                .Select(exporter => new { exporter.DisplayName, Exporter = exporter })
-                .ToList();
-
             comboBoxExporterType.DisplayMember = "DisplayName";
             comboBoxExporterType.ValueMember = "Exporter";
-            comboBoxExporterType.DataSource = exporters;
+            comboBoxExporterType.DataSource = DecorationListExporters.All;
             comboBoxExporterType.SelectedIndex = 0;
         }
     }

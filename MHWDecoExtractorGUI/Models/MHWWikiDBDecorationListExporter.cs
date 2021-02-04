@@ -6,9 +6,9 @@
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    class SummonedMeDecorationListExporter : IDecorationListExporter
+    class MHWWikiDBDecorationListExporter : IDecorationListExporter
     {
-        public string DisplayName => "summoned.me";
+        public string DisplayName => "mhw.wiki-db.com";
 
         public string ExportAsString(IReadOnlyDictionary<uint, uint> decorations)
         {
@@ -19,32 +19,31 @@
                 counts[kv.Key] = kv.Value;
             }
 
-            var exportString = string.Join("", counts.ToList()
+            var exportString = "{" + string.Join(", ", counts.ToList()
                 .Select(kv => KeyValuePair.Create(GetNormalizedDecorationName(kv.Key), kv.Value))
                 .OrderBy(kv => kv.Key, DecorationNameComparer.Instance)
-                .Select(kv => string.Format("{0}|{1};", kv.Key, Math.Min(kv.Value, 9))));
+                .Select(kv => $"\"{kv.Key}\": {Math.Min(kv.Value, 9)}")) + "}";
             return exportString;
         }
 
         private string GetNormalizedDecorationName(uint decorationId)
         {
             string decorationName = MasterData.FindJewelInfoByItemId(decorationId).Name
-                .Replace("Ⅱ", "II")
-                .Replace("Ⅲ", "III");
+                .Replace("2", "２")
+                .Replace("3", "３")
+                .Replace("IV", "Ⅳ")
+                .Replace("-", "・");
 
             // NOTE: Handle the inconsistencies between Gobbler combined L4 jewel names.
-            // summoned.me website consistently uses "조식-" prefix, whereas the in-game name is mixed.
-            decorationName = decorationName.Replace("흡입", "조식");
+            // mhw.wiki-db.com consistently uses "흡입-" prefix, whereas the in-game name is mixed.
+            decorationName = decorationName.Replace("조식", "흡입");
 
-            if (Regex.IsMatch(decorationName, "【.】$"))
+            // There is a space between the decoration name and its level,
+            // except for the ones with roman numerals.
+            if (!Regex.IsMatch(decorationName, "[ⅡⅢⅣ]"))
             {
-                decorationName = decorationName.Substring(0, decorationName.Length - 3);
+                decorationName = $"{decorationName[0..^3]} {decorationName[^3..]}";
             }
-
-            Match match = Regex.Match(decorationName, "(.+[^IVX]+)([IVX]+)?");
-            decorationName = string.IsNullOrEmpty(match.Groups[2].Value)
-                ? decorationName
-                : string.Format("{0} {1}", match.Groups[1], match.Groups[2]);
 
             return decorationName;
         }
